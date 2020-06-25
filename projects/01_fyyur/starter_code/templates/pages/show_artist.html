@@ -1,6 +1,25 @@
 {% extends 'layouts/main.html' %}
 {% block title %}{{ artist.name }} | Artist{% endblock %}
 {% block content %}
+<style>
+	.button {
+		border: none;
+		color: white;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		margin: 4px 2px;
+		cursor: pointer;
+	}
+
+	.delete {
+		background-color: #f44336;
+	}
+
+	.edit {
+		background-color: #fada5e;
+	}
+</style>
 <div class="row">
 	<div class="col-sm-6">
 		<h1 class="monospace">
@@ -71,6 +90,23 @@
 		{% endfor %}
 	</div>
 </section>
+<button class="edit button" onclick="editFunc({{ artist.id }})">EDIT</button>
+<button class="delete button" onclick="deleteFunc({{ artist.id }})">DELETE</button>
+<script>
+	function deleteFunc(id) {
+		console.log('eventDelete')
+		fetch('/artist/' + id + '/delete', {
+			method: 'DELETE'
+		})
+		.then(function() {
+			location.replace("/")
+		})
+	}
 
+	function editFunc(id) {
+		console.log('eventEdit')
+		location.replace("/artists/" + id + "/edit")
+	}
+</script>
 {% endblock %}
 
