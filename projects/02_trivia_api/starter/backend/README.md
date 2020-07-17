@@ -71,12 +71,15 @@ REVIEW_COMMENT
 This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
 
 Endpoints
-GET '/categories'
-GET ...
-POST ...
-DELETE ...
+GET '/api/categories'
+GET '/api/questions'
+GET '/api/categories/<category_id>/questions'
+POST '/api/questions'
+POST '/api/questions/search/'
+POST '/api/quizzes'
+DELETE '/apit/questions/<questions_id>'
 
-GET '/categories'
+GET '/api/categories'
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
@@ -86,6 +89,55 @@ GET '/categories'
 '4' : "History",
 '5' : "Entertainment",
 '6' : "Sports"}
+
+GET '/api/questions'
+- Fetches a paginated set of questions, their number, the categories, and the current category
+- Request Arguments: None
+- Returns: A list of question objects, their number, the categories' names, and the name of the current category
+{
+  'questions': list of question objects,
+  'total_questions': the size of the list of question objects,
+  'categories': list of strings for all categories' names,
+  'current_category': name of the current category
+}
+
+GET '/api/categories/<category_id>/questions'
+- Fetches questions based on the selected category
+- Request Argument: None
+- Returns: A list of questions with the same category as requested, their number, and the category itself
+{
+  'questions': list of questions based on the requested category,
+  'total_questions': the size of the list,
+  'current_category': the category's name of the requested category
+}
+
+POST '/api/questions'
+- Create a new question with the question itself, the answer, the level of difficulty, and the category it belongs in
+- Request Argument: question, answer, difficulty, category
+- Returns: None
+
+POST '/api/questions/search/'
+- Fetches questions based on a search term, their number, and the current category
+- Request Argument: searchTerm
+- Returns: a list of questions with the pattern of the search term, their numbers, and the current category
+{
+  'questions': list of questions based on the search term,
+  'total_questions': the size of the list,
+  'current_category': the current category's name
+}
+
+POST '/api/quizzes'
+- Fetch a single random question based on all or a category that the app has not asked the player yet in a game
+- Request Argument: previous_questions, quiz_category
+- Returns: a question based on the category given
+{
+  'question': list of question based on the category given
+}
+
+DELETE '/apit/questions/<questions_id>'
+- Delete a question with the given id
+- Request Argument: None
+- Returns: None
 
 ```
 
