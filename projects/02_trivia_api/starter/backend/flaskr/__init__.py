@@ -44,7 +44,7 @@ def create_app(test_config=None):
         'categories': return_categories
       })
     except:
-      abort(500)
+      abort(404)
   '''
   @TODO: 
   Create an endpoint to handle GET requests for questions, 
@@ -77,7 +77,7 @@ def create_app(test_config=None):
         'current_category': current_category["type"]
       })
     except:
-      abort(500)
+      abort(404)
 
   '''
   @TODO: 
@@ -90,8 +90,11 @@ def create_app(test_config=None):
   def delete_question(question_id):
     # Delete question with question_id
     question = Question.query.get(question_id)
-    question.delete()
-    return jsonify({"success": True})
+    try:
+      question.delete()
+      return jsonify({"success": True})
+    except:
+      abort(404)
 
   '''
   @TODO: 
@@ -121,7 +124,10 @@ def create_app(test_config=None):
         category=category
       )
       question.insert()
-      return jsonify({"success": True})
+      return jsonify({
+        "success": True,
+        "question_id": question.id
+      })
     except:
       abort(422)    
 
@@ -135,7 +141,7 @@ def create_app(test_config=None):
   only question that include that string within their question. 
   Try using the word "title" to start. 
   '''
-  @app.route('/api/questions/search/', methods=['POST'])
+  @app.route('/api/questions/search', methods=['POST'])
   def search():
     searchTerm = request.json['searchTerm']
     questions = Question.query.filter(Question.question.ilike(f"%{searchTerm}%"))
@@ -188,7 +194,7 @@ def create_app(test_config=None):
     quiz_category= request.json['quiz_category']
     return_question = None
 
-    if int(quiz_category["id"]) is not 0:
+    if int(quiz_category["id"]) != 0:
       # If quiz_category is all of the categories
       questions = Question.query.filter_by(category=int(quiz_category["id"]))
       indices = list(range(questions.count()))
