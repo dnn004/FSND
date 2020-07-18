@@ -102,6 +102,7 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
+        self.assertEqual(int(data['deleted_id']), question_id)
 
     def test_404_beyond_valid_question_delete(self):
         question_id = 1000
@@ -157,7 +158,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertEqual(data['question']['category'], 1)
     
-    def test_404_no_question_quiz_found(self):
+    def test_end_of_quiz(self):
         all_questions = Question.query.all()
         ids = []
         for question in all_questions:
@@ -175,8 +176,9 @@ class TriviaTestCase(unittest.TestCase):
         res = self.client().post("/api/quizzes", json=quiz)
         data = json.loads(res.data)
 
-        self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'], False)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['question'], None)
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
