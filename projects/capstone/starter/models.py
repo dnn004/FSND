@@ -4,7 +4,8 @@ from sqlalchemy import Column, String, Integer, Date, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_path = os.environ.get('DATABASE_URL')
+database_name = "cast"
+database_path = "postgresql://{}/{}".format(':5433', database_name)
 
 db = SQLAlchemy()
 

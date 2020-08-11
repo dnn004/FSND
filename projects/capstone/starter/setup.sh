@@ -1,4 +1,4 @@
-export DATABASE_URL="postgresql://:5433/cast"
+export DATABASE_URL="postgres://uctmqrfozkqrhf:29f77688b2bb3ad8f84c651edabcd5bfbcf2ded22433b8b190d9b3b5d7884c0c@ec2-54-146-91-153.compute-1.amazonaws.com:5432/dd98ae04uc7sgq"
 export AUTH0_DOMAIN='fsnd-cast.us.auth0.com'
 export ALGORITHMS=['RS256']
 export API_AUDIENCE='Cast'
