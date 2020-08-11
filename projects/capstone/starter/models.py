@@ -1,11 +1,11 @@
 
 import os
-from sqlalchemy import Column, String, Integer, create_engine
+from sqlalchemy import Column, String, Integer, Date, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 
 database_name = "cast"
-database_path = "postgres://{}/{}".format(':5433', database_name)
+database_path = "postgresql://{}/{}".format(':5433', database_name)
 
 db = SQLAlchemy()
 
@@ -34,7 +34,7 @@ class Movie(db.Model):
 
     id = Column(Integer, primary_key=True)
     title = Column(String)
-    release_date = Column(String)
+    release_date = Column(Date)
     actors = db.relationship(
         "Actor",
         secondary=movies_actors,
