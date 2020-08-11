@@ -71,11 +71,7 @@ class QuizView extends Component {
         return;
       },
       error: (error) => {
-        if(error.status=='404'){
-          alert('All of the questions of this category have been asked!')
-        } else {
-          alert('Unable to load question. Please try your request again')
-        }
+        alert('All of the questions of this category have been asked!')
         return;
       }
     })
