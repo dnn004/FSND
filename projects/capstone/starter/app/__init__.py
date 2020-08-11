@@ -12,7 +12,6 @@ def create_app(test_config=None):
     CORS(app)
 
     app.secret_key = os.environ.get("SECRET")
-    #db_drop_and_create_all()
 
     '''Endpoints:
     GET /actors and /movies
@@ -255,6 +254,7 @@ def create_app(test_config=None):
                         "error": 401,
                         "message": "unauthorized access"
         }), 401
-    
 
     return app
+
+app = create_app()
